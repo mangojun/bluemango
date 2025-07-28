@@ -1,0 +1,296 @@
+:root {
+    --black: #0A1931;
+    --blue: #185ADB;
+    --blueH: #123986;
+    --mango: #FFC947;
+    --mangoH: #b18b31;
+    --white: #EFEFEF;
+}
+
+body {
+    background-color: var(--black);
+    margin: 0;
+}
+
+#header {
+    width: 100%;
+    background-color: var(--blue);
+    display: flex;
+    align-items: center;
+}
+
+#header h1 {
+    color: var(--white);
+    margin: 0;
+    padding: 10px;
+    font-size: 25px;
+}
+
+#header span {
+    color: var(--white);
+    margin: 10px;
+    font-size: xx-large;
+}
+
+#navigator {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#navigator div {
+    height: 20px;
+    border-radius: 5px;
+    background-color: var(--mango);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+}
+
+.input {
+    background-color: var(--mango);
+    border: none;
+    color: var(--white);
+    font-size: medium;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#shader-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.shader-layout { 
+    border-radius: 10px;
+    border: var(--blue) 1px solid;
+    background-color: var(--black);
+    width: 70%;
+    padding-bottom: 10px;
+}
+
+.shader-upbar {
+    border-radius: 10px 10px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    height: 40px;
+}
+
+.shader-upbar input {
+    border: var(--blue) 1px solid;
+    border-top-left-radius: 10px;
+    background-color: var(--black);
+    color: var(--white);
+    font-size: large;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.shader-upbar .delete-button {
+    border: none;
+    border-top-right-radius: 7px;
+
+    color: var(--white);
+
+    background-color: var(--blue);
+}
+
+.shader-upbar .delete-button:hover {
+    background-color: var(--blueH);
+    font-weight: bold;
+}
+
+.component-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.shader-layout .add-button {
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    background-color: var(--mango);
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.shader-layout .add-button:hover {
+    background-color: var(--mangoH);
+    font-weight: bold;
+}
+
+.component-layout {
+    border-radius: 10px;
+    border: var(--mango) 1px solid;
+
+    background-color: var(--black);
+
+    width: calc(100% - 60px);
+
+    margin-left: 30px;
+
+    display: grid;
+    grid-template-columns: 20px 20px auto 40px;
+}
+
+.move-button {
+    border: none;
+    border-right: var(--mango) 1px solid;
+    color: var(--white);
+    font-size: xx-small;
+    background-color: #00000000;
+    padding: 0;
+    text-indent: -2px;
+}
+
+.move-button:hover {
+    font-weight: bold;
+}
+
+.component-layout div {
+    color: var(--black);
+    font-weight: bold;
+
+    margin: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.component-layout div input {
+    border: none;
+    border-radius: 5px;
+
+    background-color: var(--white);
+
+    color: var(--black);
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.component-layout div span {
+    color: var(--white);
+}
+
+.component-layout .delete-button {
+    border: none;
+    border-radius: 0 7px 7px 0;
+    color: var(--white);
+    font-size: x-large;
+    background-color: var(--mango);
+}
+
+.component-layout .delete-button:hover {
+    background-color: var(--mangoH);
+    font-weight: bold;
+}
+
+#shader-add {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--blue);
+    border: none;
+    color: var(--white);
+    margin-left: calc(50% - 20px);
+    margin-top: 10px;
+}
+
+#shader-add:hover {
+    background-color: var(--blueH);
+    font-weight: bold;
+}
+
+#download {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: var(--mango);
+    border-radius: 10px;
+    color: var(--white);
+}
+
+#download:hover {
+    background-color: var(--mangoH);
+    font-weight: bold;
+}
+
+#modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content {
+    background: var(--black);
+    border: var(--blue) 1px solid;
+    border-radius: 10px;
+    color: var(--white);
+    width: 70%;
+    height: 50%;
+    padding: 10px;
+}
+
+#modal-header {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    height: 40px;
+}
+
+#modal-header h2 {
+    margin: 0;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#modal-header button {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: x-large;
+    width: 40px;
+    height: 40px;
+}
+
+#modal-header button:hover {
+    background-color: var(--blueH);
+    font-weight: bold;
+}
+
+#modal-main {
+    overflow-y: scroll;
+    height: calc(100% - 40px);
+}
+
+#modal-main button {
+    border: var(--mango) 1px solid;
+    display: block;
+    background-color: var(--black);
+    margin: 10px;
+    color: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#modal-main button:hover {
+    background-color: var(--mango);
+}
