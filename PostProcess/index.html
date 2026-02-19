@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />    <title>마인크래프트 포스트프로세싱</title>
+</head>
+<body>
+    <header>
+        <h1>BLUEMANGO</h1>
+        <button data-action="save">
+            <span class="material-symbols-rounded">save</span>
+            <span class="label">저장</span>
+        </button>
+        <button data-action="open">
+            <span class="material-symbols-rounded">file_open</span>
+            <span class="label">열기</span>
+        </button>
+        <button onclick="alert('1.21.11 기준입니다.')">
+            <span class="material-symbols-rounded">settings</span>
+            <span class="label">팩 포멧</span>
+        </button>
+        <button data-action="datapack">
+            <span class="material-symbols-rounded">build</span>
+            <span class="label">데이터팩</span>
+        </button>
+        <button data-action="generate">
+            <span class="material-symbols-rounded">download</span>
+            <span class="label">리소스팩 생성</span>
+        </button>
+        <div id="edit">
+            <button class="material-symbols-rounded active" data-mode="delete">delete</button>
+            <button class="material-symbols-rounded" data-mode="up">arrow_circle_up</button>
+            <button class="material-symbols-rounded" data-mode="down">arrow_circle_down</button>
+            <button class="material-symbols-rounded" data-mode="copy">content_copy</button>
+            <button class="material-symbols-rounded" data-mode="cut">content_cut</button>
+            <button class="material-symbols-rounded" data-mode="paste">content_paste</button>
+        </div>
+    </header>
+    <main>
+        <div id="block-ground"></div>
+        <div id="block-list"></div>
+        <div id="block-type">
+            <button data-type="inout" class="inout">입출력</button>
+            <button data-type="math" class="math">수학</button>
+            <button data-type="var" class="var">변수</button>
+            <button data-type="draw" class="draw">그리기</button>
+            <button data-type="filter" class="filter">필터</button>
+            <button data-type="danger" class="danger">위험</button>
+        </div>
+    </main>
+    <footer>
+        <div id="shader-list">
+            <button id="active" data-action="setShader", data-num="0">DEFAULT</button>
+        </div>
+        <button id="add-shader" class="material-symbols-rounded" data-action="appendShader">add</button>
+    </footer>
+    <div id="popover" class="hidden"><div id="popover-content"></div></div>
+    <div id="modal" class="hidden"></div>
+    <input type="file" accept=".1699" class="hidden" id="open-file">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
