@@ -168,6 +168,14 @@ main #block-ground {
     font-size: 20px;
 }
 
+select {
+    color: var(--white);
+    min-width: 40px;
+    height: 25px;
+    border: var(--input-dark) 1px solid;
+    border-radius: 5px;
+}
+
 .input {
     --input-bgcolor: var(--white);
     --input-dark: var(--gray1);
@@ -327,6 +335,84 @@ footer #active {
 
 #popover .input:hover {
     background-color: var(--input-dark);
+}
+
+#modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#modal:not(.hidden) {
+    display: flex;
+}
+
+#modal-content {
+    background-color: var(--white);
+    width: 400px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#modal-header {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    background-color: var(--blue);
+    padding: 0 5px;
+}
+
+#modal-header h2 {
+    flex: 1;
+    text-align: center;
+    font-size: large;
+    color: var(--white);
+}
+
+#modal-header button {
+    width: 30px;
+    height: 30px;
+    background-color: var(--blue-dark);
+    border: none;
+    color: var(--white);
+    border-radius: 50%;
+    font-size: medium;
+    cursor: pointer;
+}
+
+#modal-header button:hover {
+    font-weight: bold;
+}
+
+#modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 30px;
+    align-items: center;
+}
+
+#modal-body input {
+    border: var(--gray1) 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    width: 250px;
+}
+
+#modal-body button {
+    border: none;
+    background-color: var(--blue);
+    padding: 10px;
+    color: var(--white);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#modal-body button:hover {
+    background-color: var(--blue-dark);
 }
 
 @media (max-width: 1000px) {

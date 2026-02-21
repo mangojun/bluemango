@@ -1,4 +1,4 @@
-import { LIST_SCHEMES, POPOVER_SCHEMES, BASE_TYPES } from "./config/scheme.js";
+import { LIST_SCHEMES, POPOVER_SCHEMES, BASE_TYPES, SHADER_TEMPLATE } from "./config/scheme.js";
 import { TEMPLATE_AFTER, TEMPLATE_BEFORE, PACK_FORMAT, TEMPLATE_FSH, TEMPLATE_VSH } from "./config/template.js";
 
 let editing_shader = 0;
@@ -6,34 +6,7 @@ let button_operation = "delete";
 let copyed_block = "";
 let pack_format = PACK_FORMAT;
 
-let shaders = [
-  {
-    declares: {
-      num: [],
-      pos: [],
-      color: [
-        "varfinal"
-      ]
-    },
-    blocks: [
-      {
-        type: "inout",
-        id: "getColor",
-        values: [
-          "varfinal",
-          "texCoord"
-        ]
-      },
-      {
-        type: "inout",
-        id: "print",
-        values: [
-          "varfinal"
-        ]
-      }
-    ]
-  }
-];
+let shaders = [structuredClone(SHADER_TEMPLATE)];
 
 function setBlockList({type}) {
     const BLOCK_LIST = document.getElementById("block-list");
@@ -122,7 +95,7 @@ function openPopover({block_num, input_num, list}) {
                         temp = `vec2(${inps[0].value}, ${inps[1].value})`;
                         break;
                     case "color":
-                        temp = `vec4(${inps[0].value}, ${inps[1].value}, ${inps[2].value}, ${inps[3].value})`;
+                        temp = `vec3(${inps[0].value}, ${inps[1].value}, ${inps[2].value})`;
                         break;
                 }
 
@@ -201,22 +174,49 @@ function closePopover() {
     popover.classList.add("hidden");
 }
 
+function openModal(header, body) {
+    const modal = document.getElementById("modal");
+    modal.classList.remove("hidden");
+
+    const modal_header = document.querySelector("#modal-header h2");
+    modal_header.innerText = header;
+
+    const modal_body = document.getElementById("modal-body");
+    modal_body.innerText = "";
+    modal_body.appendChild(body);
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.classList.add("hidden");
+}
+
 function declareVariable({attr}) {
-    // const modal = document.getElementById("modal");
-    // modal.classList.remove("hidden");
-    let a = prompt("이름");
-    if (!a) return;
-    switch (attr) {
-        case "varNum":
-            shaders[editing_shader].declares.num.push("var" + a);
-            break;
-        case "varPos":
-            shaders[editing_shader].declares.pos.push("var" + a);
-            break;
-        case "varColor":
-            shaders[editing_shader].declares.color.push("var" + a);
-            break;
-    }
+    const typeMap = {
+        num: "수",
+        pos: "좌표",
+        color: "색"
+    };
+
+    let body = document.createDocumentFragment();
+
+    let label = document.createElement("span");
+    label.innerText = `새로운 ${typeMap[attr]} 변수 이름:`;
+    body.appendChild(label);
+
+    let input = document.createElement("input");
+    body.appendChild(input);
+
+    let button = document.createElement("button");
+    button.innerText = "확인";
+    button.addEventListener("click", () => {
+        if (!input.value) return;
+        shaders[editing_shader].declares[attr].push("var" + input.value);
+        closeModal();
+    });
+    body.appendChild(button);
+
+    openModal(`새로운 ${typeMap[attr]} 변수`, body);
 }
 
 function setButtonOperation({mode}) {
@@ -299,11 +299,11 @@ function render() {
         const main = document.createElement("div");
         const fragment = document.createDocumentFragment();
 
-        const labelStr = blockScheme.label;
+        const label_str = blockScheme.label;
         const values = b.values ?? [];
 
         let temp = "";
-        let inputNum = 0;
+        let input_num = 0;
 
         const typeMap = {
             "]": "num",
@@ -311,10 +311,10 @@ function render() {
             ">": "pos"
         };
 
-        for (let i = 0; i < labelStr.length; i++) {
-            const c = labelStr[i];
+        for (let i = 0; i < label_str.length; i++) {
+            const c = label_str[i];
 
-            if (c === "[" || c === "(" || c === "<") {
+            if (c === "[" || c === "(" || c === "<" || c === "{") {
                 if (temp) {
                     const span = document.createElement("span");
                     span.textContent = temp;
@@ -329,10 +329,10 @@ function render() {
 
                 input.dataset.action = "openPopover";
                 input.dataset.block_num = block_num;
-                input.dataset.input_num = inputNum;
+                input.dataset.input_num = input_num;
                 input.dataset.list = temp;
 
-                const value = values[inputNum] ?? "";
+                const value = values[input_num] ?? "";
                 const reporterScheme = findReporterScheme(value);
 
                 if (reporterScheme) {
@@ -352,7 +352,7 @@ function render() {
                 }
 
                 fragment.appendChild(input);
-                inputNum++;
+                input_num++;
                 temp = "";
             }
 
@@ -383,7 +383,7 @@ function render() {
         block.className = b.type + " block";
 
         block_ground.appendChild(block);
-        block_num += 1;
+        block_num ++;
     });
 
     block_ground.scrollTop = scroll;
@@ -395,7 +395,7 @@ function appendShader() {
         return;
     }
 
-    shaders.push({blocks: [], declares: {num: [], pos: [], color: []}});
+    shaders.push(structuredClone(SHADER_TEMPLATE));
     editing_shader = shaders.length - 1;
     reloadShaderList();
     render()
@@ -525,6 +525,7 @@ const ACTIONS = {
     setButtonOperation,
     appendShader,
     setShader,
+    closeModal,
     declareVariable,
     save,
     open,

@@ -57,7 +57,15 @@
         <button id="add-shader" class="material-symbols-rounded" data-action="appendShader">add</button>
     </footer>
     <div id="popover" class="hidden"><div id="popover-content"></div></div>
-    <div id="modal" class="hidden"></div>
+    <div id="modal" class="hidden">
+        <div id="modal-content">
+            <div id="modal-header">
+                <h2>변수 선언</h2>
+                <button class="material-symbols-rounded" data-action="closeModal">close</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
     <input type="file" accept=".1699" class="hidden" id="open-file">
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="script.js" type="module"></script>
