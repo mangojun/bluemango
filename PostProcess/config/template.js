@@ -51,7 +51,7 @@ vec3 blend(vec3 dst, vec4 src) {
     return (dst * (1.0 - src.a)) + src.rgb;
 }
 
-vec3 generate_final(vec2 coord) {
+vec3 generate_final(vec2 texCoord) {
     color_layers[0] = vec4(texture(MainSampler, texCoord).rgb, 1.0);
     depth_layers[0] = texture(MainDepthSampler, texCoord).r;
     active_layers = 1;
@@ -209,4 +209,5 @@ export const PACK_FORMAT = `
     "max_format": 75
   }
 }
+
 `
